@@ -15,23 +15,24 @@ app.get('/', (req, res) => {
     );
 })
 
-app.get('/:number', (req, res) => {
-    let number_of_bottles = req.params.number;
-
-    if (number_of_bottles > 0) {
-        res.send(`
-        <h1>${number_of_bottles} Bottles of beer on the wall</h1>
-            <p>
-                <h2>
-                    <a href = '/${number_of_bottles - 1}'>
-                        Take one down, pass it around
-                    </a>
-                </h2>
-            </p>    
-        `);
+app.get('/:numBottles', (req, res) => {
+    const bottlesLeft = req.params.numBottles;
+    let link = '';
+  
+    if (bottlesLeft > 0) {
+      link = `<a href="/${bottlesLeft - 1}">Take one down, pass it around</a>`;
     }
-})
+  
+    res.send(`
+      <h1>${bottlesLeft} Bottles of beer on the wall</h1>
+      ${link}</br></br>
+      <a href="/">Start over</a>
+    `);
+  });
+
+
+
 
 app.listen(PORT, () => {
-    console.log('Listening on ${PORT}')
+    console.log('Listening to the port: ' + PORT)
 })
