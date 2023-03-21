@@ -15,21 +15,20 @@ app.get('/', (req, res) => {
     );
 })
 
-app.get('/:numBottles', (req, res) => {
-    const bottlesLeft = req.params.numBottles;
-    let link = '';
-  
-    if (bottlesLeft > 0) {
-      link = `<a href="/${bottlesLeft - 1}">Take one down, pass it around</a>`;
-    }
-  
+app.get('/:bottles', (req, res) => {
+  const bottles = parseInt(req.params.bottles);
+  if (bottles > 0) {
     res.send(`
-      <h1>${bottlesLeft} Bottles of beer on the wall</h1>
-      ${link}</br></br>
-      <a href="/">Start over</a>
+      <h1>${bottles} Bottles of beer on the wall</h1>
+      <h2><a href="/${bottles-1}">Take one down, pass it around</a></h2>
     `);
-  });
-
+  } else {
+    res.send(`
+      <h1>No more bottles of beer on the wall</h1>
+      <h2><a href="/">Start Over</a></h2>
+    `);
+  }
+});
 
 
 
